@@ -1,0 +1,16 @@
+'use client'
+import { useMemo, useState } from 'react'
+import Image from 'next/image'
+import { Eyebrow } from './ui'
+
+type Course = { title:string; category:string; level:string; image:string; length:string; rating:string; price:string; description:string }
+export default function CourseCatalog({ courses, categories }: { courses:Course[]; categories:string[] }) {
+  const [category,setCategory] = useState('All categories')
+  const [query,setQuery] = useState('')
+  const [level,setLevel] = useState('All levels')
+  const [sort,setSort] = useState('Popularity')
+  const filtered = useMemo(()=>courses.filter(c=>(category==='All categories'||c.category===category)&&(level==='All levels'||c.level===level)&&`${c.title} ${c.category}`.toLowerCase().includes(query.toLowerCase())).sort((a,b)=>sort==='Price: low to high'?Number(a.price.slice(1))-Number(b.price.slice(1)):0),[courses,category,level,query,sort])
+  return <><div className="catalog-controls"><label className="searchbox">⌕ <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search courses, mentors, skills, or cloud stacks…"/></label><select value={level} onChange={e=>setLevel(e.target.value)} aria-label="Filter by level"><option>All levels</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><select value={sort} onChange={e=>setSort(e.target.value)} aria-label="Sort courses"><option>Popularity</option><option>Price: low to high</option></select></div><div className="category-row">{categories.map(c=><button className={category===c?'active':''} onClick={()=>setCategory(c)} key={c}>{c}</button>)}</div>
+    <div className="featured-course"><div className="featured-course-copy"><Eyebrow>Guild flagship · Live instructor cohort</Eyebrow><h2>Mastering Agentic AI &amp; Enterprise LLMs</h2><p>Construct production-grade autonomous agent clusters, RAG execution loops, and secure inference pipelines designed to withstand enterprise-scale throughput.</p><div className="featured-details"><span>◷ &nbsp;42 hours</span><span>◈ &nbsp;On-chain SBT</span><span>♧ &nbsp;3,420 fellows</span></div><div className="teacher"><b>AT</b><span><strong>Dr. Aria Thorne</strong><small>Lead AI Principal Researcher</small></span><span className="teacher-price">$189 <small>USD</small></span><button>Preview syllabus / enroll&nbsp; ↗</button></div></div><div className="featured-course-image"><Image src="/9.png" alt="Glowing AI crystal" fill/><span>MODEL: LLAMA 3 · GPU-OPTIMIZED</span></div></div>
+    <div className="catalog-heading"><div><Eyebrow>Specialized modules</Eyebrow><h2>Curated guild masterclasses</h2></div><span>{filtered.length} courses</span></div><div className="course-grid">{filtered.map(c=><article className="course-tile" key={c.title}><div className="course-tile-image"><Image src={'/'+c.image} alt="" fill/><span>{c.level.toUpperCase()}</span><b>★ {c.rating}</b></div><div className="course-tile-copy"><small>◷ &nbsp;{c.length} intensive · {c.category}</small><h3>{c.title}</h3><p>{c.description}</p><div className="course-tile-foot"><span><b>ZT</b> Faculty mentor</span><strong>{c.price}</strong></div><button className="enroll-button">View curriculum&nbsp; ↗</button></div></article>)}</div>{filtered.length===0&&<div className="empty-state">No courses match those filters. Try another category or search term.</div>}</>
+}

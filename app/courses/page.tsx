@@ -1,0 +1,24 @@
+import Image from 'next/image'
+import { Button, Eyebrow, Metric, SectionTitle } from '@/components/ui'
+import CourseCatalog from '@/components/course-catalog'
+
+export const metadata = { title: 'Academy Courses' }
+const catalog = [
+  { title:'Mastering Agentic AI & Enterprise LLMs', category:'AI & Machine Learning', level:'Advanced', image:'9.png', length:'42 hours', rating:'4.9', price:'$189', description:'Construct production-grade autonomous agent clusters, RAG execution loops, and secure inference pipelines.' },
+  { title:'Deep Learning & Neural Architectures', category:'AI & Machine Learning', level:'Intermediate', image:'10.png', length:'38 hours', rating:'4.9', price:'$199', description:'Master backpropagation, diffusion transformers, and custom CUDA kernels.' },
+  { title:'Modern Next.js & Cloud Systems', category:'Full-Stack Web', level:'Intermediate', image:'6.jpg', length:'36 hours', rating:'4.8', price:'$149', description:'Server actions, edge rendering pipelines, multi-region state, and hyper-scalable enterprise web.' },
+  { title:'Cross-Platform Flutter Systems', category:'Mobile Engineering', level:'Intermediate', image:'12.png', length:'30 hours', rating:'4.8', price:'$139', description:'Architect native mobile, desktop, and embedded apps with predictable state engines.' },
+  { title:'Growth Engineering & AI Social Media', category:'AI & Machine Learning', level:'Beginner', image:'13.png', length:'24 hours', rating:'4.7', price:'$119', description:'Synthesize programmable content engines, audience signals, and automated workflows.' },
+  { title:'Zero-Trust Cloud Architecture & DevOps', category:'Cloud & DevOps', level:'Advanced', image:'14.png', length:'32 hours', rating:'4.9', price:'$179', description:'Deploy hardened Kubernetes meshes, Terraform policy tooling, and cryptographic boundaries.' },
+  { title:'Figma to Code: High-Performance UI/UX', category:'UI/UX Design', level:'Intermediate', image:'15.jpg', length:'18 hours', rating:'4.8', price:'$129', description:'Bridge design and production with a scalable component system and rigorous accessibility.' },
+  { title:'Zero-Trust Security Operations', category:'Cloud & DevOps', level:'Advanced', image:'8.png', length:'28 hours', rating:'4.9', price:'$169', description:'Model threats, harden infrastructure, and respond to incidents with confidence.' },
+  { title:'Algorithms for Real Systems', category:'Algorithmic Growth', level:'Beginner', image:'11.png', length:'22 hours', rating:'4.8', price:'$109', description:'Develop efficient problem-solving skills with practical algorithmic foundations.' },
+]
+const categories = ['All categories','AI & Machine Learning','Full-Stack Web','Mobile Engineering','Cloud & DevOps','UI/UX Design','Algorithmic Growth']
+export default function CoursesPage() {
+  return <main className="courses-page"><section className="inner-hero wrap"><Eyebrow>Zentiq academy / elite technical guild</Eyebrow><h1>Master cutting-edge tech<br/><span>with elite mentors.</span></h1><p>Industry-accredited curriculums built by senior engineers and AI researchers for sovereign mastery and institutional impact.</p><div className="course-metrics"><Metric value="94.8%" label="Completion rate" note="Global tier-1 nodes"/><Metric value="18.4k" label="Active learners" note="Across the guild network"/><Metric value="4.9 ★" label="Learner rating" note="Over 7k verified reviews"/><Metric value="1-on-1" label="Mentorship" note="Direct access to your lead"/></div></section>
+    <section className="wrap catalog-section"><CourseCatalog courses={catalog} categories={categories}/></section>
+    <section className="wrap guild-panel"><div><Eyebrow>The Zentiq advantage</Eyebrow><h2>An elite guild standard for sovereign builders.</h2><p>Traditional universities rely on obsolete theory. Zentiq operates on sovereign execution loops, direct peer review, and permanent reputational proofs.</p></div><div className="guild-grid">{[['◈','On-chain credentials','Cryptographically scaled credentials tied to verified deployments.'],['∞','Perpetual access','Curriculum that evolves as the industry transforms.'],['▣','Discord syndicate','A gated channel for feedback, referrals, and high-signal discussion.'],['♧','Live office hours','Weekly unscripted debugging with experienced engineers.']].map(([i,t,p])=><article className="standard-card" key={t}><span className="icon-box">{i}</span><h3>{t}</h3><p>{p}</p></article>)}</div></section>
+    <section className="wrap instructor-cta"><div><Eyebrow>Faculty applications open</Eyebrow><h2>Impart mastery. Command sovereign yield.</h2><p>Elite builders earn an average of $8,000/month teaching at Zentiq, with optional product studio opportunities.</p></div><Button href="/services">Apply as instructor&nbsp; ↗</Button></section>
+  </main>
+}
