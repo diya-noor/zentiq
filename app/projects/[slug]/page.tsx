@@ -1,0 +1,8 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { projects } from '@/content/site-data'
+import { Button, Eyebrow } from '@/components/ui'
+export function generateStaticParams(){return projects.map(p=>({slug:p.slug}))}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=projects.find(x=>x.slug===slug);return {title:p?.title??'Project not found',description:p?.text}}
+export default async function ProjectPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=projects.find(x=>x.slug===slug);if(!p)notFound();return <main className="page-shell"><article className="wrap project-detail"><header className="inner-hero"><Eyebrow>{p.tag} · Case study</Eyebrow><h1>{p.title}</h1><p>{p.text}</p></header><div className="detail-image project-hero-image"><Image src={`/${p.image}`} alt={p.alt} fill priority sizes="(max-width: 760px) 100vw, 85vw"/></div><div className="detail-copy"><div><h2>The challenge</h2><p>Our client needed a clear, dependable digital experience that could support day-to-day work and grow with changing needs.</p></div><div><h2>Our approach</h2><p>We worked with the team to shape the product, design the core experience, and deliver a maintainable platform through focused milestones.</p></div><div><h2>The result</h2><p>A cohesive product foundation with a clearer user journey and a practical path for future improvements.</p></div><Button href="/quote">Discuss a similar project</Button> <Link className="inline-link" href="/projects">Back to projects</Link></div></article></main>}
