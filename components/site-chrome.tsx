@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
@@ -12,7 +13,7 @@ const nav = [
 ] as const
 
 function Brand() {
-  return <Link className="wordmark" href="/" aria-label="Zentiq home"><span className="brand-glyph" aria-hidden="true">Z</span><span>ZENTIQ</span></Link>
+  return <Link className="wordmark" href="/" aria-label="Zentiq home"><Image className="brand-logo" src="/zentiq-logo.png" alt="" width={52} height={52} /></Link>
 }
 
 export function SiteHeader() {
